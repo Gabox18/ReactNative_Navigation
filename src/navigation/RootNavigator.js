@@ -1,12 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native'
-import MyStack from './MyStack'
-import MyBottomTab from './MyBottomTab'
+import MyDrawer from './MyDrawer'
+import AuthStack from './AuthStack'
 
 export default function RootNavigator() {
+	const user = true
 	return (
 		<NavigationContainer>
-			<MyStack />
-			{/* <MyBottomTab /> */}
+			{user ? <MyDrawer /> : <AuthStack />}
 		</NavigationContainer>
 	)
 }
+
+//13:30
