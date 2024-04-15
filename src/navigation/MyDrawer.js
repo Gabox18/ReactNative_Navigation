@@ -7,7 +7,13 @@ const drawer = createDrawerNavigator()
 const MyDrawer = () => {
 	return (
 		<drawer.Navigator>
-			<drawer.Screen name='Stack' component={MyStack} />
+			<drawer.Screen
+				name='Stack'
+				component={MyStack}
+				options={{
+					headerShown: false,
+				}}
+			/>
 			<drawer.Screen name='Notifications' component={Notifications} />
 		</drawer.Navigator>
 	)
