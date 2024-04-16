@@ -40,7 +40,7 @@ const MyBottomTab = () => {
 					headerRight: () => (
 						<Pressable
 							onPress={() => {
-								navigation.openDrawer()
+								navigation.navigate('Settings')
 							}}
 						>
 							<FontAwesome
@@ -72,4 +72,3 @@ const MyBottomTab = () => {
 }
 
 export default MyBottomTab
-
