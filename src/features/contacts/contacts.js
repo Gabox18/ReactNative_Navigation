@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = [
@@ -10,10 +11,10 @@ const contactsSlice = createSlice({
 	name: 'contacts',
 	initialState,
 	reducers: {
-		setContact: (state, action) => {
+		getContact:  (state,action) => {
 			state = action.payload
 		},
-		addContact: (state, action) => {
+		addContact:  (state, action) => {
 			state.push(action.payload)
 		},
 		deleteContact: (state, action) => {
@@ -22,5 +23,21 @@ const contactsSlice = createSlice({
 	},
 })
 
-export const { addContact, deleteContact, setContact } = contactsSlice.actions
+export const asyncGetContacts = () => {
+	return async function (dispatch) {
+		const contacts = await AsyncStorage.getItem('@contacts')
+		if (contacts === null) {
+			await AsyncStorage.setItem('@contact', JSON.stringify(initialState))
+			return dispatch(initialState)
+		} else {
+			return dispatch(JSON.parse(contacts)) 
+		}
+	}
+}
+
+export const asyncAddContact = (contact)=>{
+	//-------->aqui voyyyyyyyyy
+}
+
+export const { addContact, deleteContact, getContact } = contactsSlice.actions
 export default contactsSlice.reducer
