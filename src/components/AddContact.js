@@ -1,14 +1,19 @@
-import { Button, StyleSheet, View } from 'react-native'
+import { Button, Pressable, StyleSheet, View } from 'react-native'
 import { Colors } from '../constants/colors'
 import Myinput from './Myinput'
 import { useState } from 'react'
+import { asyncAddContact } from '../features/contacts/contacts'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function AddContact() {
+	const dispatch = useDispatch()
+	const contact = useSelector(state => state.contacts)
 	const [name, setName] = useState('')
 
 	function handleAdd() {
+		dispatch(asyncAddContact({ id: Math.round(Math.random() * 1000), name }))
 		setName('')
-		handleAddContact(name)
+		console.log(contact, 'en el addContact')
 	}
 
 	return (

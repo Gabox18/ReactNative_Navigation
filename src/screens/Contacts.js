@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { globalStyles } from '../styles/global'
 import AddContact from '../components/AddContact'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,19 +7,20 @@ import { asyncGetContacts } from '../features/contacts/contacts'
 
 export default function Contacts() {
 	const dispatch = useDispatch()
+	const contacts = useSelector(state => state.contacts)
+	//const auth = useSelector(state => state.auth)
 	useEffect(() => {
 		dispatch(asyncGetContacts())
+		console.log(contacts, 'use effect')
 	}, [])
-	const contact = useSelector(state => state.contacts)
 
 	return (
 		<View style={globalStyles.simpleContainer}>
 			<AddContact />
-			{contact.map((c, index) => (
+			{contacts.map((c, index) => (
 				<Text key={index}>{c.name}</Text>
 			))}
+			<Button  title='pressss' onPress={() => dispatch(asyncGetContacts())} />
 		</View>
 	)
 }
-
-//19:47
