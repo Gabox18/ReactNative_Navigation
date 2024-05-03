@@ -8,7 +8,7 @@ import { asyncGetContacts } from '../features/contacts/contacts'
 export default function Contacts() {
 	const dispatch = useDispatch()
 	const contacts = useSelector(state => state.contacts)
-	//const auth = useSelector(state => state.auth)
+
 	useEffect(() => {
 		dispatch(asyncGetContacts())
 		console.log(contacts, 'use effect')
@@ -20,7 +20,7 @@ export default function Contacts() {
 			{contacts.map((c, index) => (
 				<Text key={index}>{c.name}</Text>
 			))}
-			<Button  title='pressss' onPress={() => dispatch(asyncGetContacts())} />
+			<Button title='pressss' onPress={() => dispatch(asyncGetContacts())} />
 		</View>
 	)
 }

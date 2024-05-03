@@ -13,10 +13,10 @@ export default function Profile() {
 				title='Sign out'
 				onPress={async () => {
 					await AsyncStorage.removeItem('@token')
+					await AsyncStorage.removeItem('@firstLaunch')
 					dispatch(signout())
 				}}
 			/>
 		</View>
 	)
 }
- 

@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import Settings from '../screens/Settings'
 import MyBottomTab from './MyBottomTab'
+import Onboarding from '../screens/Onboarding'
 
 const HomeStack = createStackNavigator()
 const myconfig = {
@@ -19,10 +20,12 @@ export default function MyStack() {
 				<HomeStack.Screen
 					name='Settings'
 					component={Settings}
-					options={{
-						// title: 'optiones',
-						headerBackTitle: 'casa',
-					}}
+					options={{ headerBackTitle: 'casa' }}
+				/>
+				<HomeStack.Screen
+					name='Onboarding'
+					component={Onboarding}
+					options={{ headerShown: false }}
 				/>
 			</HomeStack.Group>
 		</HomeStack.Navigator>

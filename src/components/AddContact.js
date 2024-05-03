@@ -13,7 +13,6 @@ export default function AddContact() {
 	function handleAdd() {
 		dispatch(asyncAddContact({ id: Math.round(Math.random() * 1000), name }))
 		setName('')
-		console.log(contact, 'en el addContact')
 	}
 
 	return (

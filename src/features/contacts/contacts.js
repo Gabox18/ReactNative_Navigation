@@ -30,8 +30,7 @@ export const asyncGetContacts = () => {
 			return dispatch(getContact(initialState))
 		} else {
 			const jsoncontact = JSON.parse(contacts)
-			console.log(jsoncontact, 'json---------- nulll')
-			//console.log(contacts, 'contact ---------- nulll')
+			//console.log(jsoncontact, 'json---------- nulll')
 			return dispatch(getContact(jsoncontact))
 		}
 	}
