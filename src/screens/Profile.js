@@ -14,6 +14,7 @@ export default function Profile() {
 				onPress={async () => {
 					await AsyncStorage.removeItem('@token')
 					await AsyncStorage.removeItem('@firstLaunch')
+					await AsyncStorage.removeItem('@contacts')
 					dispatch(signout())
 				}}
 			/>

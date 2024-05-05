@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import { globalStyles } from '../styles/global'
 import AddContact from '../components/AddContact'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,7 +20,6 @@ export default function Contacts() {
 			{contacts.map((c, index) => (
 				<Text key={index}>{c.name}</Text>
 			))}
-			<Button title='pressss' onPress={() => dispatch(asyncGetContacts())} />
 		</View>
 	)
 }
