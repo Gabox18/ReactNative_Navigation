@@ -1,10 +1,68 @@
 import * as React from 'react'
-import { Text, View, StyleSheet, Dimensions, Image } from 'react-native'
+import {
+	Text,
+	View,
+	StyleSheet,
+	Dimensions,
+	Image,
+	Platform,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Colors } from '../constants/colors'
 import MyButton from '../components/MyButton'
+import * as Device from 'expo-device'
+import * as Notifications from 'expo-notifications'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Onboarding() {
+	const navigator = useNavigation()
+
+	function handlePress() {
+		registerForPushNotificationsAsync()
+			.then(async token => {
+				await AsyncStorage.setItem('@pushToken', token)
+				navigator.navigate('Home')
+			})
+			.catch(err => {
+				console.log(err)
+				navigator.navigate('Home')
+			})
+	}
+
+	async function registerForPushNotificationsAsync() {
+		let token
+		if (Device.isDevice) {
+			const { status: existingStatus } =
+				await Notifications.getPermissionsAsync()
+			let finalStatus = existingStatus
+			if (existingStatus !== 'granted') {
+				const { status } = await Notifications.requestPermissionsAsync()
+				finalStatus = status
+			}
+			if (finalStatus !== 'granted') {
+				alert('fail to get token')
+				return
+			}
+			token = (
+				await Notifications.getExpoPushTokenAsync({
+					projectId: '81f9635f-c3e9-4b0d-83f4-350d588a6536',
+				})
+			).data
+			console.log('this is the token', token)
+		} else {
+			return
+		}
+		if (Platform.OS === 'android') {
+			Notifications.setNotificationChannelAsync('default', {
+				name: 'default',
+				importance: Notifications.AndroidImportance.MAX,
+				vibrationPattern: [0, 250, 250, 250],
+				lightColor: '#FF231F7C',
+			})
+		}
+		return token
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Welcome to My App</Text>
@@ -42,7 +100,7 @@ export default function Onboarding() {
 					</Text>
 				</View>
 			</View>
-			<MyButton title={'Continue'} onPress={() => {}} />
+			<MyButton title={'Continue'} onPress={handlePress} />
 		</View>
 	)
 }
